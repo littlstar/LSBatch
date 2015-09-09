@@ -1,8 +1,8 @@
 
 #import <assert.h>
-#import <batch/batch.h>
+#import <LSBatch/LSBatch.h>
 
-@interface MyDelegate : NSObject <BatchDelegate>
+@interface MyDelegate : NSObject <LSBatchDelegate>
 @property (nonatomic, readwrite) BOOL hasError;
 @property (nonatomic, copy) NSError *err;
 @end
@@ -10,9 +10,9 @@
 @implementation MyDelegate
 @synthesize hasError;
 @synthesize err;
-- (void) batchDidFinish: (id <Batch>) batch {}
-- (void) batchDidAbort: (id <Batch>) batch { }
-- (void) batch: (id <Batch>) batch didFailWithError: (id <NSObject>) error {
+- (void) batchDidFinish: (id <LSBatch>) batch {}
+- (void) batchDidAbort: (id <LSBatch>) batch { }
+- (void) batch: (id <LSBatch>) batch didFailWithError: (id <NSObject>) error {
   self.hasError = YES;
   self.err = (NSError *) error;
 }
@@ -21,7 +21,7 @@
 int
 main (void) {
   __block MyDelegate *delegate = (MyDelegate.alloc.init);
-  __block Batch *batch = [Batch new: 1];
+  __block LSBatch *batch = [LSBatch new: 1];
   assert(batch);
   assert(1 == batch.concurrency);
 
@@ -29,7 +29,7 @@ main (void) {
 
   __block BOOL worker1 = NO;
   __block BOOL worker2 = NO;
-  [batch push: ^(BatchNextCallback next) {
+  [batch push: ^(LSBatchNextCallback next) {
     NSMutableDictionary* details = (NSMutableDictionary.dictionary);
       [details setValue: @"error"
                  forKey: NSLocalizedDescriptionKey];
@@ -41,7 +41,7 @@ main (void) {
 
   assert(1 == batch.length);
 
-  [batch push: ^(BatchNextCallback next) {
+  [batch push: ^(LSBatchNextCallback next) {
     worker2 = YES;
     next(nil);
   }];

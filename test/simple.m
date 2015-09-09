@@ -1,23 +1,23 @@
 
 #import <assert.h>
-#import <batch/batch.h>
+#import <LSBatch/LSBatch.h>
 
 int
 main (void) {
-  Batch *batch = [Batch new: 1];
+  LSBatch *batch = [LSBatch new: 1];
   assert(batch);
   assert(1 == batch.concurrency);
 
   __block BOOL worker1 = NO;
   __block BOOL worker2 = NO;
-  [batch push: ^(BatchNextCallback next) {
+  [batch push: ^(LSBatchNextCallback next) {
     worker1 = YES;
     next(nil);
   }];
 
   assert(1 == batch.length);
 
-  [batch push: ^(BatchNextCallback next) {
+  [batch push: ^(LSBatchNextCallback next) {
     worker2 = YES;
     next(nil);
   }];

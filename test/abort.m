@@ -1,8 +1,8 @@
 
 #import <assert.h>
-#import <batch/batch.h>
+#import <LSBatch/LSBatch.h>
 
-@interface MyDelegate : NSObject <BatchDelegate>
+@interface MyDelegate : NSObject <LSBatchDelegate>
 @property (nonatomic, readwrite) BOOL didFinish;
 @property (nonatomic, readwrite) BOOL didAbort;
 @property (nonatomic, readwrite) BOOL hasError;
@@ -11,9 +11,9 @@
 
 @implementation MyDelegate
 @synthesize didAbort;
-- (void) batchDidFinish: (id <Batch>) batch { }
-- (void) batch: (id <Batch>) batch didFailWithError: (id <NSObject>) error { }
-- (void) batchDidAbort: (id <Batch>) batch {
+- (void) batchDidFinish: (id <LSBatch>) batch { }
+- (void) batch: (id <LSBatch>) batch didFailWithError: (id <NSObject>) error { }
+- (void) batchDidAbort: (id <LSBatch>) batch {
   self.didAbort = YES;
 }
 @end
@@ -22,7 +22,7 @@
 int
 main (void) {
   __block MyDelegate *delegate = (MyDelegate.alloc.init);
-  __block Batch *batch = [Batch new: 1];
+  __block LSBatch *batch = [LSBatch new: 1];
   assert(batch);
   assert(1 == batch.concurrency);
 
@@ -30,14 +30,14 @@ main (void) {
 
   __block BOOL worker1 = NO;
   __block BOOL worker2 = NO;
-  [batch push: ^(BatchNextCallback next) {
+  [batch push: ^(LSBatchNextCallback next) {
     [batch abort];
     next(nil);
   }];
 
   assert(1 == batch.length);
 
-  [batch push: ^(BatchNextCallback next) {
+  [batch push: ^(LSBatchNextCallback next) {
     worker2 = YES;
     next(nil);
   }];

@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name = "Batch"
+  s.name = "LSBatch"
   s.version = "0.0.7"
   s.summary = "Batch control flow for Objective-C"
   s.description  = <<-DESC

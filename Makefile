@@ -7,7 +7,7 @@ SRC := $(wildcard src/*.m)
 OBJS := $(SRC:.m=.o)
 
 ## Target static library name
-TARGET_STATIC := libbatch.a
+TARGET_STATIC := libLSBatch.a
 
 ## Compiler flags
 CFLAGS += -Iinclude

@@ -1,5 +1,5 @@
-## libbatch dependency
-LIB := ../libbatch.a
+## libLSBatch dependency
+LIB := ../libLSBatch.a
 
 ## Test source files
 SRC := $(wildcard *.m)

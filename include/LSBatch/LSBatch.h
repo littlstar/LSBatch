@@ -7,82 +7,82 @@
 #import <Foundation/Foundation.h>
 
 /**
- * Batch classes.
+ * LSBatch classes.
  */
 
-@class Batch;
-@class BatchWorker;
+@class LSBatch;
+@class LSBatchWorker;
 
 /**
- * Batch protocols.
+ * LSBatch protocols.
  */
 
-@protocol Batch;
-@protocol BatchWorker;
-@protocol BatchDelegate;
+@protocol LSBatch;
+@protocol LSBatchWorker;
+@protocol LSBatchDelegate;
 
 /**
  * Block callback notifying batch queue
  * that work is complete.
  */
 
-typedef void (^BatchNextCallback)(id <NSObject> err);
+typedef void (^LSBatchNextCallback)(id <NSObject> err);
 
 /**
  * Block to represent batch work to be done.
  */
 
-typedef void (^BatchWorkerCallback)(BatchNextCallback);
+typedef void (^LSBatchWorkerCallback)(LSBatchNextCallback);
 
 /**
  * Block that is called when all work is
  * complete or when an error occurs.
  */
 
-typedef void (^BatchDoneCallback)(id <NSObject> err);
+typedef void (^LSBatchDoneCallback)(id <NSObject> err);
 
 /**
- * Batch delegate protocol.
+ * LSBatch delegate protocol.
  */
 
-@protocol BatchDelegate <NSObject>
+@protocol LSBatchDelegate <NSObject>
 
 /**
  * Called when batch did finish all work.
  */
 
-- (void) batchDidFinish: (id <Batch>) batch;
+- (void) batchDidFinish: (id <LSBatch>) batch;
 
 /**
  * Called when batch encountered an error.
  */
 
-- (void) batch: (id <Batch>) batch didFailWithError: (id <NSObject>) err;
+- (void) batch: (id <LSBatch>) batch didFailWithError: (id <NSObject>) err;
 
 /**
  * Called when batch work has been aborted.
  */
 
-- (void) batchDidAbort: (id <Batch>) batch;
+- (void) batchDidAbort: (id <LSBatch>) batch;
 @end
 
 /**
- * BatchWorker protcol.
+ * LSBatchWorker protcol.
  */
 
-@protocol BatchWorker <NSObject>
+@protocol LSBatchWorker <NSObject>
 
 /**
  * This batch worker block.
  */
 
-@property (nonatomic, copy) BatchWorkerCallback work;
+@property (nonatomic, copy) LSBatchWorkerCallback work;
 
 /**
- * Parent Batch class instance.
+ * Parent LSBatch class instance.
  */
 
-@property (nonatomic, strong) id <Batch> parent;
+@property (nonatomic, strong) id <LSBatch> parent;
 
 /**
  * Predicate indicating of batch worker is complete.
@@ -106,23 +106,23 @@ typedef void (^BatchDoneCallback)(id <NSObject> err);
  * Create a new instance with a block
  */
 
-+ (id) new: (BatchWorkerCallback) work;
++ (id) new: (LSBatchWorkerCallback) work;
 
 /**
  * Run this workers work.
  */
 
-- (instancetype) run: (BatchNextCallback) done;
+- (instancetype) run: (LSBatchNextCallback) done;
 @end
 
 /**
- * Batch protocol.
+ * LSBatch protocol.
  */
 
-@protocol Batch <NSObject>
+@protocol LSBatch <NSObject>
 
 /**
- * This Batch instance UID.
+ * This LSBatch instance UID.
  */
 
 @property (nonatomic, readonly) const char *uid;
@@ -150,21 +150,21 @@ typedef void (^BatchDoneCallback)(id <NSObject> err);
  * Sets batch delegate.
  */
 
-- (instancetype) delegate: (id <BatchDelegate>) delegate;
+- (instancetype) delegate: (id <LSBatchDelegate>) delegate;
 
 /**
  * Push work on to the batch queue for later
  * execution.
  */
 
-- (instancetype) push: (BatchWorkerCallback) work;
+- (instancetype) push: (LSBatchWorkerCallback) work;
 
 /**
  * Runs alls queued batch workers calling the
  * done callback when completed.
  */
 
-- (instancetype) end: (BatchDoneCallback) done;
+- (instancetype) end: (LSBatchDoneCallback) done;
 
 /**
  * Runs all queued batch workers.
@@ -186,17 +186,17 @@ typedef void (^BatchDoneCallback)(id <NSObject> err);
 @end
 
 /**
- * BatchWorker class interface.
+ * LSBatchWorker class interface.
  */
 
-@interface BatchWorker : NSObject <BatchWorker>
+@interface LSBatchWorker : NSObject <LSBatchWorker>
 @end
 
 /**
- * Batch class interface.
+ * LSBatch class interface.
  */
 
-@interface Batch : NSObject <Batch> {
+@interface LSBatch : NSObject <LSBatch> {
 unsigned int _length;
 }
 
@@ -204,7 +204,7 @@ unsigned int _length;
  * Optional delegate object.
  */
 
-@property (nonatomic, strong) id <BatchDelegate> delegate;
+@property (nonatomic, strong) id <LSBatchDelegate> delegate;
 
 /**
  * Queued work.
@@ -216,10 +216,10 @@ unsigned int _length;
  * Optional done callback.
  */
 
-@property (copy) BatchDoneCallback done;
+@property (copy) LSBatchDoneCallback done;
 
 /**
- * Generates a Batch instance UID.
+ * Generates a LSBatch instance UID.
  */
 
 + (const char *) UID;

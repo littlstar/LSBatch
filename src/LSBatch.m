@@ -1,18 +1,18 @@
 /**
- * `batch.m' - batch.m
+ * `LSBatch.m' - LSBatch
  *
  * copyright (c) 2015 - Littlstar
  */
 
-#import <batch/batch.h>
+#import <LSBatch/LSBatch.h>
 
 static unsigned int BATCH_COUNTER = 0;
 
 /**
- * BatchWorker class implementation.
+ * LSBatchWorker class implementation.
  */
 
-@implementation BatchWorker
+@implementation LSBatchWorker
 @synthesize work;
 @synthesize parent;
 @synthesize isWorking;
@@ -23,14 +23,14 @@ static unsigned int BATCH_COUNTER = 0;
  * Create a new instance with a block
  */
 
-+ (id) new: (BatchWorkerCallback) work {
-  BatchWorker *me = (BatchWorker.alloc.init);
++ (id) new: (LSBatchWorkerCallback) work {
+  LSBatchWorker *me = (LSBatchWorker.alloc.init);
   me.work = work;
   return (id) me;
 }
 
 /**
- * BatchWorker class initializer.
+ * LSBatchWorker class initializer.
  */
 
 - (instancetype) init {
@@ -48,17 +48,17 @@ static unsigned int BATCH_COUNTER = 0;
  * Run this workers work.
  */
 
-- (instancetype) run: (BatchNextCallback) done {
+- (instancetype) run: (LSBatchNextCallback) done {
   self.work(done);
   return self;
 }
 @end
 
 /**
- * Batch class implementation.
+ * LSBatch class implementation.
  */
 
-@implementation Batch
+@implementation LSBatch
 @synthesize uid;
 @synthesize isAborted;
 @synthesize concurrency;
@@ -67,14 +67,14 @@ static unsigned int BATCH_COUNTER = 0;
  * Create a new instance with a known concurrency.
  */
 
-+ (Batch *) new: (unsigned int) concurrency {
-  Batch *me = (Batch.alloc.init);
++ (LSBatch *) new: (unsigned int) concurrency {
+  LSBatch *me = (LSBatch.alloc.init);
   me.concurrency = concurrency;
   return me;
 }
 
 /**
- * Generates a Batch instance UID.
+ * Generates a LSBatch instance UID.
  */
 
 + (const char *) UID {
@@ -85,13 +85,13 @@ static unsigned int BATCH_COUNTER = 0;
 }
 
 /**
- * Batch class initializer.
+ * LSBatch class initializer.
  */
 
 - (instancetype) init {
   self = [super init];
   // public
-  uid = (Batch.UID);
+  uid = (LSBatch.UID);
   isAborted = NO;
   concurrency = INFINITY;
 
@@ -107,7 +107,7 @@ static unsigned int BATCH_COUNTER = 0;
  * Sets batch delegate.
  */
 
-- (instancetype) delegate: (id <BatchDelegate>) delegate {
+- (instancetype) delegate: (id <LSBatchDelegate>) delegate {
   _delegate = delegate;
   return self;
 }
@@ -117,8 +117,8 @@ static unsigned int BATCH_COUNTER = 0;
  * execution.
  */
 
-- (instancetype) push: (BatchWorkerCallback) work {
-  BatchWorker *worker = [BatchWorker new: work];
+- (instancetype) push: (LSBatchWorkerCallback) work {
+  LSBatchWorker *worker = [LSBatchWorker new: work];
   [_workers addObject: worker];
   return self;
 }
@@ -128,7 +128,7 @@ static unsigned int BATCH_COUNTER = 0;
  * done callback when completed.
  */
 
-- (instancetype) end: (BatchDoneCallback) done {
+- (instancetype) end: (LSBatchDoneCallback) done {
   _done = done;
   return [self run];
 }
@@ -139,8 +139,8 @@ static unsigned int BATCH_COUNTER = 0;
 
 - (instancetype) run {
   // block dependencies
-  __block Batch *this = self;
-  __block id <BatchDelegate> delegate = _delegate;
+  __block LSBatch *this = self;
+  __block id <LSBatchDelegate> delegate = _delegate;
   __block unsigned int index = 0;
   __block unsigned int length = self.length;
   __block unsigned int pending = self.length;
@@ -164,7 +164,7 @@ static unsigned int BATCH_COUNTER = 0;
     __block SEL didFailWithError = @selector(batch:didFailWithError:);
     __block SEL didAbort = @selector(batchDidAbort:);
     unsigned int i = index++;
-    BatchWorker *work = workers[i];
+    LSBatchWorker *work = workers[i];
     if (nil == work) return;
     else if ([this isAborted]) {
       if ([delegate respondsToSelector: didAbort]) {
