@@ -151,11 +151,11 @@ static unsigned int BATCH_COUNTER = 0;
 
   // no work to be done
   if (0 == pending) {
-    if (_done != nil) _done(nil);
     if (delegate && [delegate respondsToSelector: didFinish]) {
       [delegate batchDidFinish: self];
-      return self;
     }
+    if (_done != nil) _done(nil);
+    return self;
   }
 
   // process
@@ -173,18 +173,18 @@ static unsigned int BATCH_COUNTER = 0;
           [delegate batchDidAbort: this];
         }
       } else if (err) {
-        if (_done != nil) _done(err);
         if ([delegate respondsToSelector: didFailWithError]) {
           [delegate batch: this didFailWithError: err];
         }
+        if (_done != nil) _done(err);
       } else {
         if (--pending) {
           next();
         } else {
-          if (_done != nil) _done(nil);
           if (delegate && [delegate respondsToSelector: didFinish]) {
             [delegate batchDidFinish: this];
           }
+          if (_done != nil) _done(nil);
         }
       }
     }];
