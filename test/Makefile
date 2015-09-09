@@ -27,13 +27,13 @@ all: $(TESTS)
 
 ## Builds a named test
 $(TESTS): $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(LIB) $< -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LIB) $@.o -o $@
 	./$@
 
 ## Builds test object files
 $(OBJS): $(LIB)
 $(OBJS): $(SRC)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $(@:.o=.m) -o $@
 
 ## Ensure dependency library is built
 $(LIB):

@@ -139,7 +139,7 @@ static unsigned int BATCH_COUNTER = 0;
 
 - (instancetype) run {
   // block dependencies
-  __block id this = self;
+  __block Batch *this = self;
   __block id <BatchDelegate> delegate = _delegate;
   __block unsigned int index = 0;
   __block unsigned int total = self.length;
@@ -160,18 +160,26 @@ static unsigned int BATCH_COUNTER = 0;
 
   // process
   __block void (^next) () = ^ {
+    __block SEL didFailWithError = @selector(batch:didFailWithError:);
+    __block SEL didAbort = @selector(batchDidAbort:);
     unsigned int i = index++;
     BatchWorker *work = workers[i];
-    if (nil == work || [this isAborted]) return;
+    if (nil == work) return;
+    else if ([this isAborted]) {
+      if ([delegate respondsToSelector: didAbort]) {
+        [delegate batchDidAbort: this];
+      }
+      if (_done != nil) _done(nil);
+      return;
+    }
 
     // run this work
     [work run: ^(NSError *err) {
-      SEL didFailWithError = @selector(batch:didFailWithError:);
-      SEL didAbort = @selector(batchDidAbort:);
       if ([this isAborted]) {
         if ([delegate respondsToSelector: didAbort]) {
           [delegate batchDidAbort: this];
         }
+        if (_done != nil) _done(nil);
       } else if (err) {
         if ([delegate respondsToSelector: didFailWithError]) {
           [delegate batch: this didFailWithError: err];
