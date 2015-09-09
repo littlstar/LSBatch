@@ -57,8 +57,8 @@ typedef void (^BatchDoneCallback)(id <NSObject> err);
 
 A simple worker example can constructed as such:
 
-```obj
-Batch *batch = [Batch new: 1];
+```objc
+Batch *batch = [Batch new: INFINITY];
 
 // queue work
 [batch push: ^(BatchNextCallback next) {
@@ -75,10 +75,11 @@ Batch *batch = [Batch new: 1];
 // Execute worker blocks calling the provided
 // callback block.
 [batch end: ^(NSError *err) {
-  assert(nil == err);
-  assert(worker1);
-  assert(worker2);
-  exit(0);
+  if (err) {
+    // handle error
+  } else {
+    // handle success
+  }
 }];
 ```
 
