@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.homepage = "https://github.com/littlstar/Batch"
   s.license = "MIT"
   s.author = {"Joseph Werle" => "werle@littlstar.com"}
-  s.source = {:git => "git@github.com:littlstar/Batch.git", :tag => s.version.to_s}
+  s.source = {:git => "https://github.com/littlstar/Batch.git", :tag => s.version.to_s}
   s.source_files = "src/*.m"
-  s.public_header_files = "include/batch/*.h"
+  s.public_header_files = "include/*/*.h"
 end
