@@ -12,7 +12,6 @@ TARGET_STATIC := libbatch.a
 ## Compiler flags
 CFLAGS += -Iinclude
 CFLAGS += -Wall
-CFLAGS += -Warc-retain-cycles
 
 ## Builds all targets
 .PHONY: all

@@ -13,7 +13,6 @@ TESTS := $(SRC:.m=)
 ## Compiler flags
 CFLAGS += -I../include
 CFLAGS += -Wall
-CFLAGS += -Warc-retain-cycles
 
 ## Linker flags
 LDFLAGS += -lobjc -framework Cocoa

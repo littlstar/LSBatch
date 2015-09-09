@@ -159,8 +159,8 @@ static unsigned int BATCH_COUNTER = 0;
 
   // process
   typedef void (^NextBlock)(void);
-  __block __weak NextBlock process = nil;
-  __block NextBlock next = process = ^ {
+  __block NextBlock next = nil;
+  NextBlock process = ^{
     __block SEL didFailWithError = @selector(batch:didFailWithError:);
     __block SEL didAbort = @selector(batchDidAbort:);
     unsigned int i = index++;
@@ -188,7 +188,7 @@ static unsigned int BATCH_COUNTER = 0;
         if (_done != nil) _done(err);
       } else {
         if (--pending) {
-          process();
+          next();
         } else {
           if (delegate && [delegate respondsToSelector: didFinish]) {
             [delegate batchDidFinish: this];
@@ -199,6 +199,7 @@ static unsigned int BATCH_COUNTER = 0;
     }];
   };
 
+  next = process;
 
   // initialize work!
   for (int i = 0; i < length; ++i) {
