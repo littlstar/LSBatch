@@ -1,0 +1,11 @@
+{
+  "name": "batch.m",
+  "version": "0.0.1",
+  "repo": "littlstar/batch.m",
+  "description": "Tiny async batch library for Objective-C",
+  "keywords": ["batch", "async", "objective-c"],
+  "src": [
+    "include/batch/batch.h",
+    "src/batch.m"
+  ]
+}
