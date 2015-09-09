@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "Batch"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.summary = "Batch control flow for Objective-C"
   s.description  = <<-DESC
                    Control flow can be tough and GCD provides a great abstraction.
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.homepage = "https://github.com/littlstar/Batch"
   s.license = "MIT"
   s.author = {"Joseph Werle" => "werle@littlstar.com"}
-  s.source = {:git => "git@github.com:littlstar/Batch.git", :tag => "0.0.1"}
+  s.source = {:git => "git@github.com:littlstar/Batch.git", :tag => s.version.to_s}
   s.source_files = "src/*.m"
   s.public_header_files = "include/batch/*.h"
 end
