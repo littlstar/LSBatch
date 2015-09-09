@@ -14,4 +14,5 @@ Pod::Spec.new do |s|
   s.source = {:git => "https://github.com/littlstar/Batch.git", :tag => s.version.to_s}
   s.source_files = "src/*.m"
   s.public_header_files = "include/*/*.h"
+  s.preserve_paths = "include/*/*.h"
 end

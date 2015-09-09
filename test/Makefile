@@ -11,7 +11,7 @@ OBJS := $(SRC:.m=.o)
 TESTS := $(SRC:.m=)
 
 ## Compiler flags
-CFLAGS += -I../include
+CFLAGS += -I../include -Wall
 
 ## Linker flags
 LDFLAGS += -lobjc -framework Cocoa

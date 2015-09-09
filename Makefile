@@ -10,7 +10,7 @@ OBJS := $(SRC:.m=.o)
 TARGET_STATIC := libbatch.a
 
 ## Compiler flags
-CFLAGS += -Iinclude
+CFLAGS += -Iinclude -Wall
 
 ## Builds all targets
 .PHONY: all

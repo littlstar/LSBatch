@@ -34,7 +34,7 @@ static unsigned int BATCH_COUNTER = 0;
  */
 
 - (instancetype) init {
-  [super init];
+  self = [super init];
   // public
   work = nil;
   parent = nil;
@@ -89,7 +89,7 @@ static unsigned int BATCH_COUNTER = 0;
  */
 
 - (instancetype) init {
-  [super init];
+  self = [super init];
   // public
   uid = (Batch.UID);
   isAborted = NO;
@@ -142,7 +142,6 @@ static unsigned int BATCH_COUNTER = 0;
   __block Batch *this = self;
   __block id <BatchDelegate> delegate = _delegate;
   __block unsigned int index = 0;
-  __block unsigned int total = self.length;
   __block unsigned int length = self.length;
   __block unsigned int pending = self.length;
   __block NSArray *workers = _workers.copy;
@@ -159,7 +158,9 @@ static unsigned int BATCH_COUNTER = 0;
   }
 
   // process
-  __block void (^next) () = ^ {
+  typedef void (^NextBlock)(void);
+  __block NextBlock process = nil;
+  __block NextBlock next = process = ^ {
     __block SEL didFailWithError = @selector(batch:didFailWithError:);
     __block SEL didAbort = @selector(batchDidAbort:);
     unsigned int i = index++;
@@ -187,7 +188,7 @@ static unsigned int BATCH_COUNTER = 0;
         if (_done != nil) _done(err);
       } else {
         if (--pending) {
-          next();
+          process();
         } else {
           if (delegate && [delegate respondsToSelector: didFinish]) {
             [delegate batchDidFinish: this];
@@ -197,6 +198,7 @@ static unsigned int BATCH_COUNTER = 0;
       }
     }];
   };
+
 
   // initialize work!
   for (int i = 0; i < length; ++i) {
@@ -221,7 +223,7 @@ static unsigned int BATCH_COUNTER = 0;
  */
 
 - (unsigned int) length {
-  _length = _workers.count;
+  _length = (unsigned int) _workers.count;
   return _length;
 }
 @end
