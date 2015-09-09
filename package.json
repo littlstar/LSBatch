@@ -1,9 +1,9 @@
 {
-  "name": "batch.m",
+  "name": "Batch",
   "version": "0.0.1",
-  "repo": "littlstar/batch.m",
-  "description": "Tiny async batch library for Objective-C",
-  "keywords": ["batch", "async", "objective-c"],
+  "repo": "littlstar/Batch",
+  "description": "Batch control flow for Objective-C",
+  "keywords": ["batch", "async", "objective-c", "ios", "osx"],
   "src": [
     "include/batch/batch.h",
     "src/batch.m"
