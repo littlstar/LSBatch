@@ -159,7 +159,7 @@ static unsigned int BATCH_COUNTER = 0;
 
   // process
   typedef void (^NextBlock)(void);
-  __block NextBlock process = nil;
+  __block __weak NextBlock process = nil;
   __block NextBlock next = process = ^ {
     __block SEL didFailWithError = @selector(batch:didFailWithError:);
     __block SEL didAbort = @selector(batchDidAbort:);

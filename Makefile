@@ -10,7 +10,9 @@ OBJS := $(SRC:.m=.o)
 TARGET_STATIC := libbatch.a
 
 ## Compiler flags
-CFLAGS += -Iinclude -Wall
+CFLAGS += -Iinclude
+CFLAGS += -Wall
+CFLAGS += -Warc-retain-cycles
 
 ## Builds all targets
 .PHONY: all
