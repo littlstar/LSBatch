@@ -1,6 +1,6 @@
 {
   "name": "Batch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repo": "littlstar/Batch",
   "description": "Batch control flow for Objective-C",
   "keywords": ["batch", "async", "objective-c", "ios", "osx"],
