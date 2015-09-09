@@ -11,6 +11,8 @@ Pod::Spec.new do |s|
   s.homepage = "https://github.com/littlstar/Batch"
   s.license = "MIT"
   s.author = {"Joseph Werle" => "werle@littlstar.com"}
+  s.platform = :ios, '7.0'
+  s.requires_arc = true
   s.source = {:git => "https://github.com/littlstar/Batch.git", :tag => s.version.to_s}
   s.source_files = "src/*.m"
   s.public_header_files = "include/*/*.h"
