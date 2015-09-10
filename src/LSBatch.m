@@ -199,7 +199,7 @@ static unsigned int BATCH_COUNTER = 0;
     }];
   };
 
-  next = process;
+  next = [process copy];
 
   // initialize work!
   for (int i = 0; i < length; ++i) {
