@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "LSBatch"
-  s.version = "0.0.8"
+  s.version = "0.0.9"
   s.summary = "Batch control flow for Objective-C"
   s.description  = <<-DESC
                    Control flow can be tough and GCD provides a great abstraction.

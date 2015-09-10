@@ -1,6 +1,6 @@
 {
   "name": "LSBatch",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "repo": "littlstar/LSBatch",
   "description": "LSBatch control flow for Objective-C",
   "keywords": ["batch", "async", "objective-c", "ios", "osx"],
