@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "LSBatch"
-  s.version = "0.0.9"
+  s.version = "0.0.10"
   s.summary = "Batch control flow for Objective-C"
   s.description  = <<-DESC
                    Control flow can be tough and GCD provides a great abstraction.
@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.header_dir = "./include/"
   s.source_files = "src/*.m"
   s.public_header_files = "include/*/*.h"
-  s.preserve_paths = "include/*/*.h"
+  s.preserve_paths = "include/*"
 end
