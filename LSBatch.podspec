@@ -8,11 +8,12 @@ Pod::Spec.new do |s|
                    blocks and delegate method patterns.
 
   DESC
-  s.homepage = "https://github.com/littlstar/Batch"
+  s.homepage = "https://github.com/littlstar/LSBatch"
   s.license = "MIT"
   s.author = {"Joseph Werle" => "werle@littlstar.com"}
   s.requires_arc = true
-  s.source = {:git => "https://github.com/littlstar/Batch.git", :tag => s.version.to_s}
+  s.source = {:git => "https://github.com/littlstar/LSBatch.git", :tag => s.version.to_s}
+  s.header_dir = "./include/"
   s.source_files = "src/*.m"
   s.public_header_files = "include/*/*.h"
   s.preserve_paths = "include/*/*.h"
